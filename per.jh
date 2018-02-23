@@ -1,0 +1,13 @@
+entity Person {
+	ID Integer required,
+	name String required, /**nome o ragione sociale */
+	surname String required,
+	birthDate ZonedDateTime required,
+	piva String,
+	cf String,
+	phoneNumber String,
+	flagLegal YesNotEnum required /* Si per le persone giuridiche */,
+	idType IDTypeEnum, /*tipo di documento utilizzato per l'identificazione */
+	idNumber String,
+	flagNewsletter YesNotEnum required
+}
