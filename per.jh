@@ -1,0 +1,56 @@
+entity Person {
+	ID Integer required,
+	name String required, /**nome o ragione sociale */
+	surname String required,
+	birthDate ZonedDateTime required,
+	piva String,
+	cf String,
+	phoneNumber String,
+	flagLegal YesNotEnum required /* Si per le persone giuridiche */,
+	idType IDTypeEnum, /*tipo di documento utilizzato per l'identificazione */
+	idNumber String,
+	flagNewsletter YesNotEnum required
+}
+
+enum IDTypeEnum {
+	CARTAIDENTITA, PASSAPORTO
+}
+enum YesNotEnum {
+	YES, NO
+}
+
+
+entity Request {
+	ID Integer required,
+	subject String required, /**nome o ragione sociale */
+	code String required,
+ 
+     submissionDate ZonedDateTime
+	}
+ entity RequestStatusLog {
+	ID Integer required,
+ 
+	note String,
+	statusFromDate ZonedDateTime required,
+	statusChangeDate ZonedDateTime required
+
+}
+ 
+ entity RequestType {
+	ID Integer required,
+  	reqType ReqTypeEnum, 
+ 
+	code String
+	
+}
+entity RequestStatus {
+	ID Integer required,
+	code RequestStatusEnum required,
+	description String required
+}
+enum RequestStatusEnum {
+	PROPOSED, OPEN, CLOSED, REFUSED,  APPROVED, DELETED, SUCCESS
+}
+enum ReqTypeEnum {
+	RICORSOTRIBUTARIO, RATEAZIONE
+}
