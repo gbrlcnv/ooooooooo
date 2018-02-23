@@ -1,0 +1,80 @@
+<div>
+    <h2>Doc Stores</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="doc-store.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Doc Store
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th><span>Locale</span></th>
+                    <th><span>Code</span></th>
+                    <th><span>Title</span></th>
+                    <th><span>Description</span></th>
+                    <th><span>Content Binary</span></th>
+                    <th><span>Creation Date</span></th>
+                    <th><span>Content Text</span></th>
+                    <th><span>Mime Type</span></th>
+                    <th><span>Path</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="docStore in vm.docStores track by docStore.id">
+                    <td><a ui-sref="doc-store-detail({id:docStore.id})">{{docStore.id}}</a></td>
+                    <td>{{docStore.locale}}</td>
+                    <td>{{docStore.code}}</td>
+                    <td>{{docStore.title}}</td>
+                    <td>{{docStore.description}}</td>
+                    <td>
+                        <a ng-if="docStore.contentBinary" ng-click="vm.openFile(docStore.contentBinaryContentType, docStore.contentBinary)">
+                            <img data-ng-src="{{'data:' + docStore.contentBinaryContentType + ';base64,' + docStore.contentBinary}}" style="max-height: 30px;" alt="docStore image"/>
+                        </a>
+                        <span ng-if="docStore.contentBinary">{{docStore.contentBinaryContentType}}, {{vm.byteSize(docStore.contentBinary)}}</span>
+                    </td>
+                    <td>{{docStore.creationDate | date:'medium'}}</td>
+                    <td>
+                        <a ng-if="docStore.contentText" ng-click="vm.openFile(docStore.contentTextContentType, docStore.contentText)">open</a>
+                        <span ng-if="docStore.contentText">{{docStore.contentTextContentType}}, {{vm.byteSize(docStore.contentText)}}</span>
+                    </td>
+                    <td>{{docStore.mimeType}}</td>
+                    <td>{{docStore.path}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="doc-store-detail({id:docStore.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="doc-store.edit({id:docStore.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="doc-store.delete({id:docStore.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

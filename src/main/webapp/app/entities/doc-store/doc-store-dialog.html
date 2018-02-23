@@ -1,0 +1,151 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myDocStoreLabel">Create or edit a Doc Store</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.docStore.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.docStore.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_locale">Locale</label>
+            <select class="form-control" name="locale" ng-model="vm.docStore.locale" id="field_locale" required>
+                <option value="EN">EN</option>
+                <option value="IT">IT</option>
+            </select>
+            <div ng-show="editForm.locale.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.locale.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_code">Code</label>
+            <input type="text" class="form-control" name="code" id="field_code"
+                    ng-model="vm.docStore.code"
+                    required/>
+            <div ng-show="editForm.code.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.code.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_title">Title</label>
+            <input type="text" class="form-control" name="title" id="field_title"
+                    ng-model="vm.docStore.title"
+                    required/>
+            <div ng-show="editForm.title.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.title.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="vm.docStore.description"
+                    required/>
+            <div ng-show="editForm.description.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.description.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group" ngf-drop ngf-change="vm.setContentBinary($file, vm.docStore)" ngf-pattern="'image/*'">
+            <label class="control-label" for="field_contentBinary">Content Binary</label>
+            <div>
+                <img data-ng-src="{{'data:' + vm.docStore.contentBinaryContentType + ';base64,' + vm.docStore.contentBinary}}" style="max-height: 100px;" ng-if="vm.docStore.contentBinary" alt="docStore image"/>
+                <div ng-if="vm.docStore.contentBinary" class="help-block clearfix">
+                    <span class="pull-left">{{vm.docStore.contentBinaryContentType}}, {{vm.byteSize(vm.docStore.contentBinary)}}</span>
+                    <button type="button" ng-click="vm.docStore.contentBinary=null;vm.docStore.contentBinaryContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="button" ngf-select class="btn btn-default btn-block"
+                        ngf-change="vm.setContentBinary($file, vm.docStore)" accept="image/*">
+                    Add image
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="contentBinary" id="field_contentBinary"
+                    ng-model="vm.docStore.contentBinary"
+                    />
+            <input type="hidden" class="form-control" name="contentBinaryContentType" id="field_contentBinaryContentType"
+                    ng-model="vm.docStore.contentBinaryContentType" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_creationDate">Creation Date</label>
+                <div class="input-group">
+                    <input id="field_creationDate" type="text" class="form-control" name="creationDate" datetime-picker="{{dateformat}}" ng-model="vm.docStore.creationDate" is-open="vm.datePickerOpenStatus.creationDate"
+                    required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('creationDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.creationDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.creationDate.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.creationDate.$error.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </p>
+            </div>
+        </div>
+        <div class="form-group" ngf-drop ngf-change="vm.setContentText($file, vm.docStore)">
+            <label class="control-label" for="field_contentText">Content Text</label>
+            <div>
+                <div ng-if="vm.docStore.contentText" class="help-block clearfix">
+                    <a class="pull-left" ng-click="vm.openFile(vm.docStore.contentTextContentType, vm.docStore.contentText)">open</a><br>
+                    <span class="pull-left">{{vm.docStore.contentTextContentType}}, {{vm.byteSize(vm.docStore.contentText)}}</span>
+                    <button type="button" ng-click="vm.docStore.contentText=null;vm.docStore.contentTextContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="button" ngf-select class="btn btn-default btn-block"
+                        ngf-change="vm.setContentText($file, vm.docStore)">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="contentText" id="field_contentText"
+                    ng-model="vm.docStore.contentText"
+                    />
+            <input type="hidden" class="form-control" name="contentTextContentType" id="field_contentTextContentType"
+                    ng-model="vm.docStore.contentTextContentType" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_mimeType">Mime Type</label>
+            <input type="text" class="form-control" name="mimeType" id="field_mimeType"
+                    ng-model="vm.docStore.mimeType"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_path" uib-tooltip="valutare se serve, nel caso converrebbe mettere enum">Path</label>
+            <input type="text" class="form-control" name="path" id="field_path"
+                    ng-model="vm.docStore.path"
+                    />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>
