@@ -1,0 +1,63 @@
+
+<div>
+    <h2><span>Doc Store</span> {{vm.docStore.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Locale</span></dt>
+        <dd>
+            <span>{{vm.docStore.locale}}</span>
+        </dd>
+        <dt><span>Code</span></dt>
+        <dd>
+            <span>{{vm.docStore.code}}</span>
+        </dd>
+        <dt><span>Title</span></dt>
+        <dd>
+            <span>{{vm.docStore.title}}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+            <span>{{vm.docStore.description}}</span>
+        </dd>
+        <dt><span>Content Binary</span></dt>
+        <dd>
+            <div ng-if="vm.docStore.contentBinary">
+                <a ng-click="vm.openFile(vm.docStore.contentBinaryContentType, vm.docStore.contentBinary)">
+                    <img data-ng-src="{{'data:' + vm.docStore.contentBinaryContentType + ';base64,' + vm.docStore.contentBinary}}" style="max-width: 100%;" alt="docStore image"/>
+                </a>
+                {{vm.docStore.contentBinaryContentType}}, {{vm.byteSize(vm.docStore.contentBinary)}}
+            </div>
+        </dd>
+        <dt><span>Creation Date</span></dt>
+        <dd>
+            <span>{{vm.docStore.creationDate | date:'medium'}}</span>
+        </dd>
+        <dt><span>Content Text</span></dt>
+        <dd>
+            <div ng-if="vm.docStore.contentText">
+                <a ng-click="vm.openFile(vm.docStore.contentTextContentType, vm.docStore.contentText)">open</a>
+                {{vm.docStore.contentTextContentType}}, {{vm.byteSize(vm.docStore.contentText)}}
+            </div>
+        </dd>
+        <dt><span>Mime Type</span></dt>
+        <dd>
+            <span>{{vm.docStore.mimeType}}</span>
+        </dd>
+        <dt><span uib-tooltip="valutare se serve, nel caso converrebbe mettere enum">Path</span></dt>
+        <dd>
+            <span>{{vm.docStore.path}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="doc-store-detail.edit({id:vm.docStore.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

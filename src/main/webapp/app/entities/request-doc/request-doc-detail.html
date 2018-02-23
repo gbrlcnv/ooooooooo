@@ -1,0 +1,35 @@
+
+<div>
+    <h2><span>Request Doc</span> {{vm.requestDoc.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Submission Date</span></dt>
+        <dd>
+            <span>{{vm.requestDoc.submissionDate | date:'medium'}}</span>
+        </dd>
+        <dt><span>Update Date</span></dt>
+        <dd>
+            <span>{{vm.requestDoc.updateDate | date:'medium'}}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+            <span>{{vm.requestDoc.description}}</span>
+        </dd>
+        <dt><span uib-tooltip="in inviati dall&#39;utente, out inseriti dalla piattaforma">In Out</span></dt>
+        <dd>
+            <span>{{vm.requestDoc.inOut}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="request-doc-detail.edit({id:vm.requestDoc.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

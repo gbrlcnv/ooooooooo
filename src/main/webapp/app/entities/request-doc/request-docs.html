@@ -1,0 +1,62 @@
+<div>
+    <h2>Request Docs</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="request-doc.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Request Doc
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th><span>Submission Date</span></th>
+                    <th><span>Update Date</span></th>
+                    <th><span>Description</span></th>
+                    <th><span>In Out</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="requestDoc in vm.requestDocs track by requestDoc.id">
+                    <td><a ui-sref="request-doc-detail({id:requestDoc.id})">{{requestDoc.id}}</a></td>
+                    <td>{{requestDoc.submissionDate | date:'medium'}}</td>
+                    <td>{{requestDoc.updateDate | date:'medium'}}</td>
+                    <td>{{requestDoc.description}}</td>
+                    <td>{{requestDoc.inOut}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="request-doc-detail({id:requestDoc.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="request-doc.edit({id:requestDoc.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="request-doc.delete({id:requestDoc.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
